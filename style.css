@@ -1,0 +1,1865 @@
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+
+    font-family: "Courier New", monospace;
+    color: #ffffff;
+    position: relative;
+
+    background-image: url("fondo1.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+/* =========================================
+   CAPA OSCURA
+========================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background:
+        rgba(5, 0, 15, 0.48);
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+/* =========================================
+   EFECTOS VISUALES DEL FONDO
+========================================= */
+
+body::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 30%,
+            rgba(0, 0, 0, 0.58) 100%
+        ),
+
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(110, 0, 190, 0.06),
+            transparent 48%
+        ),
+
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.018) 0px,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px,
+            transparent 5px
+        );
+
+    background-size:
+        100% 100%,
+        180% 180%,
+        100% 100%;
+
+    animation:
+        backgroundPulse 8s ease-in-out infinite,
+        scanlines 8s linear infinite;
+}
+
+
+/* =========================================
+   BRILLO AMBIENTAL
+========================================= */
+
+.container::before {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(120, 0, 200, 0.07) 0%,
+            rgba(80, 0, 160, 0.025) 35%,
+            transparent 70%
+        );
+
+    filter: blur(45px);
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    animation:
+        ambientGlow 7s ease-in-out infinite;
+}
+
+
+/* =========================================
+   INTERFERENCIA DIGITAL
+========================================= */
+
+.container::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(160, 0, 220, 0.025) 48%,
+            transparent 52%
+        );
+
+    animation:
+        digitalInterference 7s infinite;
+}
+
+
+/* =========================================
+   ANIMACIÓN DEL FONDO
+========================================= */
+
+@keyframes backgroundPulse {
+
+    0%,
+    100% {
+        background-position:
+            center center,
+            45% 45%,
+            center center;
+    }
+
+    50% {
+        background-position:
+            center center,
+            55% 55%,
+            center center;
+    }
+}
+
+
+/* =========================================
+   SCANLINES
+========================================= */
+
+@keyframes scanlines {
+
+    0% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(2px);
+    }
+
+    100% {
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================
+   BRILLO AMBIENTAL
+========================================= */
+
+@keyframes ambientGlow {
+
+    0%,
+    100% {
+        opacity: 0.35;
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.98);
+    }
+
+    50% {
+        opacity: 0.65;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.04);
+    }
+}
+
+
+/* =========================================
+   INTERFERENCIA
+========================================= */
+
+@keyframes digitalInterference {
+
+    0%,
+    87% {
+        opacity: 0;
+
+        transform:
+            translateX(0)
+            skewX(0deg);
+    }
+
+    88% {
+        opacity: 0.45;
+
+        transform:
+            translateX(-2px)
+            skewX(-0.5deg);
+    }
+
+    89% {
+        opacity: 0;
+
+        transform:
+            translateX(3px)
+            skewX(0.5deg);
+    }
+
+    90% {
+        opacity: 0.25;
+
+        transform:
+            translateX(-1px)
+            skewX(0deg);
+    }
+
+    91%,
+    100% {
+        opacity: 0;
+
+        transform:
+            translateX(0)
+            skewX(0deg);
+    }
+}
+
+
+/* =========================================
+   PARTÍCULAS DIGITALES
+========================================= */
+
+.particles {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 5;
+}
+
+
+/* =========================================
+   PARTÍCULA BASE
+========================================= */
+
+.particle {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 3px;
+    height: 3px;
+
+    background:
+        #d400ff;
+
+    box-shadow:
+        0 0 4px #d400ff,
+        0 0 9px #b000ff,
+        0 0 16px rgba(190, 0, 255, 0.85);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    animation:
+        digitalFloat
+        linear
+        infinite;
+}
+
+
+/* =========================================
+   CÍRCULOS
+========================================= */
+
+.particle.circle {
+    border-radius: 50%;
+}
+
+
+/* =========================================
+   PÍXELES
+========================================= */
+
+.particle.pixel {
+    border-radius: 0;
+
+    width: 3px;
+    height: 3px;
+
+    box-shadow:
+        0 0 4px #d400ff,
+        0 0 8px #a800ff;
+}
+
+
+/* =========================================
+   LÍNEAS DIGITALES
+========================================= */
+
+.particle.line {
+    width: 12px;
+    height: 2px;
+
+    border-radius: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #d400ff,
+            transparent
+        );
+
+    box-shadow:
+        0 0 5px #c000ff,
+        0 0 12px rgba(180, 0, 255, 0.75);
+
+    animation-duration:
+        var(--duration);
+}
+
+
+/* =========================================
+   MOVIMIENTO PRINCIPAL
+========================================= */
+
+@keyframes digitalFloat {
+
+    0% {
+
+        transform:
+            translate3d(
+                0,
+                0,
+                0
+            )
+            rotate(0deg)
+            scale(0.5);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.85;
+    }
+
+    35% {
+        opacity: 0.65;
+    }
+
+    50% {
+
+        transform:
+            translate3d(
+                var(--move-x-mid),
+                var(--move-y-mid),
+                0
+            )
+            rotate(
+                var(--rotation)
+            )
+            scale(1);
+
+        opacity: 0.75;
+    }
+
+    75% {
+        opacity: 0.9;
+    }
+
+    90% {
+        opacity: 0.55;
+    }
+
+    100% {
+
+        transform:
+            translate3d(
+                var(--move-x),
+                var(--move-y),
+                0
+            )
+            rotate(
+                calc(
+                    var(--rotation) * 2
+                )
+            )
+            scale(0.3);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================
+   MOVIMIENTO ALTERNATIVO
+========================================= */
+
+.particle:nth-child(3n) {
+    animation-name:
+        digitalFloatReverse;
+}
+
+@keyframes digitalFloatReverse {
+
+    0% {
+
+        transform:
+            translate3d(
+                0,
+                0,
+                0
+            )
+            rotate(0deg)
+            scale(0.4);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.8;
+    }
+
+    50% {
+
+        transform:
+            translate3d(
+                var(--move-x-mid),
+                var(--move-y-mid),
+                0
+            )
+            rotate(
+                var(--rotation)
+            )
+            scale(1.15);
+
+        opacity: 0.65;
+    }
+
+    80% {
+        opacity: 0.8;
+    }
+
+    100% {
+
+        transform:
+            translate3d(
+                var(--move-x),
+                var(--move-y),
+                0
+            )
+            rotate(
+                calc(
+                    var(--rotation) * -1
+                )
+            )
+            scale(0.2);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================
+   PARPADEO DIGITAL
+========================================= */
+
+.particle:nth-child(5n) {
+    animation-name:
+        digitalBlink;
+}
+
+@keyframes digitalBlink {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translate3d(
+                0,
+                0,
+                0
+            )
+            scale(0.4);
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    18% {
+        opacity: 0.2;
+    }
+
+    25% {
+        opacity: 0.9;
+    }
+
+    50% {
+
+        opacity: 0.55;
+
+        transform:
+            translate3d(
+                var(--move-x-mid),
+                var(--move-y-mid),
+                0
+            )
+            scale(1);
+    }
+
+    75% {
+        opacity: 0.9;
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate3d(
+                var(--move-x),
+                var(--move-y),
+                0
+            )
+            scale(0.2);
+    }
+}
+
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.container {
+    position: relative;
+
+    z-index: 10;
+
+    width: min(760px, 92%);
+
+    height: 100vh;
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    /*
+       SUBIMOS EL BLOQUE COMPLETO
+       PARA SEPARARLO DE LA BARRA
+       DE TAREAS
+    */
+
+    transform:
+        translateY(-55px);
+}
+
+.profile {
+    width: 100%;
+}
+
+
+/* =========================================
+   AVATAR
+========================================= */
+
+.avatar {
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid #9b00e8;
+
+    border-radius: 50%;
+
+    background:
+        rgba(8, 0, 18, 0.88);
+
+    color:
+        #c400ff;
+
+    font-size:
+        28px;
+
+    font-weight:
+        bold;
+
+    box-shadow:
+        0 0 8px rgba(140, 0, 210, 0.45);
+
+    text-shadow:
+        0 0 5px rgba(170, 0, 255, 0.55);
+}
+
+
+/* =========================================
+   NOMBRE
+========================================= */
+
+.name-reveal {
+
+    font-size:
+        30px;
+
+    letter-spacing:
+        3px;
+
+    color:
+        #c400ff;
+
+    margin-bottom:
+        7px;
+
+    text-shadow:
+        0 0 4px rgba(140, 0, 210, 0.7);
+}
+
+.name-reveal::after {
+
+    content:
+        "_";
+
+    animation:
+        cursorBlink 0.8s infinite;
+}
+
+
+/* =========================================
+   DESCRIPCIÓN
+========================================= */
+
+.description {
+
+    color:
+        #d8c5e8;
+
+    font-size:
+        14px;
+
+    margin-bottom:
+        8px;
+
+    text-shadow:
+        0 0 4px rgba(130, 0, 190, 0.35);
+}
+
+
+/* =========================================
+   ONLINE
+========================================= */
+
+.status {
+
+    font-size:
+        12px;
+
+    color:
+        #b900ed;
+
+    letter-spacing:
+        2px;
+
+    margin-bottom:
+        17px;
+
+    text-shadow:
+        0 0 5px rgba(150, 0, 220, 0.5);
+}
+
+
+/* =========================================
+   REDES
+========================================= */
+
+.links {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+}
+
+
+/* =========================================
+   CUADRADOS
+========================================= */
+
+.link-card {
+
+    position:
+        relative;
+
+    width:
+        105px;
+
+    height:
+        105px;
+
+    flex-shrink:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    padding:
+        10px;
+
+    color:
+        #ffffff;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        1px;
+
+    border:
+        1px solid rgba(155, 0, 232, 0.85);
+
+    background:
+        rgba(7, 0, 16, 0.82);
+
+    backdrop-filter:
+        blur(5px);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+    overflow:
+        hidden;
+}
+
+
+/* =========================================
+   LÍNEA INFERIOR
+========================================= */
+
+.link-card::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        -100%;
+
+    bottom:
+        0;
+
+    width:
+        100%;
+
+    height:
+        2px;
+
+    background:
+        #b800ee;
+
+    box-shadow:
+        0 0 5px rgba(170, 0, 230, 0.7);
+
+    transition:
+        left 0.35s ease;
+}
+
+
+/* =========================================
+   EFECTO DE ESCANEO
+========================================= */
+
+.link-card::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        -100%;
+
+    left:
+        0;
+
+    width:
+        100%;
+
+    height:
+        35%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(150, 0, 210, 0.07),
+            transparent
+        );
+
+    pointer-events:
+        none;
+
+    transition:
+        top 0.45s ease;
+}
+
+.link-card:hover::after {
+    top:
+        110%;
+}
+
+
+/* =========================================
+   LINK DEL LOGO
+========================================= */
+
+.icon-link {
+
+    position:
+        relative;
+
+    z-index:
+        5;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    color:
+        #c000f0;
+
+    text-decoration:
+        none;
+
+    cursor:
+        pointer;
+}
+
+
+/* =========================================
+   ICONOS
+========================================= */
+
+.link-icon {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    color:
+        #c000f0;
+
+    font-size:
+        22px;
+
+    background:
+        transparent;
+
+    text-shadow:
+        0 0 4px rgba(160, 0, 220, 0.5);
+
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease,
+        text-shadow 0.25s ease;
+}
+
+
+/* =========================================
+   TEXTO
+========================================= */
+
+.link-card span {
+
+    position:
+        relative;
+
+    z-index:
+        5;
+
+    pointer-events:
+        none;
+
+    color:
+        #eee7f4;
+
+    text-shadow:
+        0 0 3px rgba(150, 0, 210, 0.3);
+
+    transition:
+        color 0.25s ease,
+        text-shadow 0.25s ease;
+}
+
+
+/* =========================================
+   HOVER GENERAL
+========================================= */
+
+.link-card:hover {
+
+    transform:
+        translateY(-6px)
+        scale(1.025);
+
+    border-color:
+        #c000f0;
+
+    background:
+        rgba(30, 0, 48, 0.92);
+
+    box-shadow:
+        0 0 8px rgba(150, 0, 220, 0.35),
+        inset 0 0 10px rgba(120, 0, 180, 0.08);
+}
+
+.link-card:hover::before {
+    left:
+        0;
+}
+
+.link-card:hover span {
+
+    color:
+        #ffffff;
+
+    text-shadow:
+        0 0 5px rgba(170, 0, 230, 0.55);
+}
+
+
+/* =========================================
+   HOVER DEL LOGO
+========================================= */
+
+.icon-link:hover .link-icon {
+
+    transform:
+        scale(1.15);
+
+    color:
+        #df65ff;
+
+    text-shadow:
+        0 0 5px rgba(200, 0, 255, 0.7),
+        0 0 12px rgba(170, 0, 240, 0.45);
+}
+
+
+/* =========================================
+   EFECTOS INDIVIDUALES
+========================================= */
+
+
+/* KICK */
+
+.network-1:hover .link-icon {
+
+    animation:
+        kickPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes kickPulse {
+
+    0%,
+    100% {
+        transform:
+            scale(1.05);
+    }
+
+    50% {
+        transform:
+            scale(1.22);
+    }
+}
+
+
+/* INSTAGRAM */
+
+.network-2:hover .link-icon {
+
+    animation:
+        instagramGlow 1.2s ease-in-out infinite;
+}
+
+@keyframes instagramGlow {
+
+    0%,
+    100% {
+        text-shadow:
+            0 0 4px rgba(160, 0, 220, 0.5);
+    }
+
+    50% {
+        text-shadow:
+            0 0 6px rgba(255, 0, 180, 0.8),
+            0 0 15px rgba(180, 0, 255, 0.65);
+    }
+}
+
+
+/* FACEIT */
+
+.network-3:hover .link-icon {
+
+    animation:
+        faceitTarget 0.9s ease-in-out infinite;
+}
+
+@keyframes faceitTarget {
+
+    0%,
+    100% {
+        transform:
+            scale(1.05)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            scale(1.18)
+            rotate(4deg);
+    }
+}
+
+
+/* YOUTUBE */
+
+.network-4:hover .link-icon {
+
+    animation:
+        youtubePulse 0.9s ease-in-out infinite;
+}
+
+@keyframes youtubePulse {
+
+    0%,
+    100% {
+        transform:
+            scale(1.05);
+    }
+
+    50% {
+        transform:
+            scale(1.2);
+    }
+}
+
+
+/* TIKTOK */
+
+.network-5:hover .link-icon {
+
+    animation:
+        tiktokGlitch 0.45s steps(2, end) infinite;
+}
+
+@keyframes tiktokGlitch {
+
+    0% {
+
+        transform:
+            translate(0, 0)
+            scale(1.08);
+
+        text-shadow:
+            2px 0 #ff00ff,
+            -2px 0 #00ffff;
+    }
+
+    50% {
+
+        transform:
+            translate(-2px, 1px)
+            scale(1.15);
+
+        text-shadow:
+            -2px 0 #ff00ff,
+            2px 0 #00ffff;
+    }
+
+    100% {
+
+        transform:
+            translate(1px, -1px)
+            scale(1.08);
+
+        text-shadow:
+            2px 0 #ff00ff,
+            -2px 0 #00ffff;
+    }
+}
+
+
+/* STEAM */
+
+.network-6:hover .link-icon {
+
+    animation:
+        steamRotate 1.2s ease-in-out infinite;
+}
+
+@keyframes steamRotate {
+
+    0%,
+    100% {
+        transform:
+            scale(1.05)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            scale(1.15)
+            rotate(8deg);
+    }
+}
+
+
+/* =========================================
+   GLITCH AL HACER CLIC
+========================================= */
+
+.icon-link:active .link-icon {
+
+    animation:
+        clickGlitch 0.32s steps(2, end);
+
+    color:
+        #ffffff;
+
+    text-shadow:
+        2px 0 #ff00ff,
+        -2px 0 #00ffff,
+        0 0 5px #ffffff;
+}
+
+@keyframes clickGlitch {
+
+    0% {
+        transform:
+            translate(0, 0)
+            scale(1);
+
+        filter:
+            none;
+    }
+
+    15% {
+        transform:
+            translate(-3px, 1px)
+            scale(1.12);
+
+        filter:
+            hue-rotate(40deg);
+    }
+
+    30% {
+        transform:
+            translate(3px, -1px)
+            scale(0.9);
+
+        filter:
+            contrast(1.8);
+    }
+
+    45% {
+        transform:
+            translate(-2px, 2px)
+            scale(1.15);
+
+        filter:
+            hue-rotate(-50deg);
+    }
+
+    60% {
+        transform:
+            translate(2px, -2px)
+            scale(0.95);
+
+        filter:
+            contrast(1.5);
+    }
+
+    75% {
+        transform:
+            translate(-1px, 0)
+            scale(1.1);
+
+        filter:
+            none;
+    }
+
+    100% {
+        transform:
+            translate(0, 0)
+            scale(1);
+
+        filter:
+            none;
+    }
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+
+    margin-top:
+        15px;
+
+    font-size:
+        10px;
+
+    color:
+        rgba(210, 190, 225, 0.65);
+
+    letter-spacing:
+        1px;
+}
+
+
+/* =========================================
+   REVEAL
+========================================= */
+
+.reveal {
+
+    opacity:
+        0;
+
+    transform:
+        translateY(15px);
+
+    filter:
+        blur(4px);
+}
+
+.page-loaded .reveal {
+
+    animation:
+        revealElement 0.6s ease forwards;
+}
+
+@keyframes revealElement {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(15px);
+
+        filter:
+            blur(4px);
+    }
+
+    100% {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+        filter:
+            blur(0);
+    }
+}
+
+
+/* =========================================
+   ANIMACIONES
+========================================= */
+
+.avatar-reveal {
+    animation-delay:
+        0.15s;
+}
+
+.name-reveal {
+    animation-delay:
+        0.65s;
+}
+
+.welcome-reveal {
+    animation-delay:
+        1.05s;
+}
+
+.online-reveal {
+    animation-delay:
+        1.45s;
+}
+
+.network-1 {
+    animation-delay:
+        1.85s;
+}
+
+.network-2 {
+    animation-delay:
+        2.10s;
+}
+
+.network-3 {
+    animation-delay:
+        2.35s;
+}
+
+.network-4 {
+    animation-delay:
+        2.60s;
+}
+
+.network-5 {
+    animation-delay:
+        2.85s;
+}
+
+.network-6 {
+    animation-delay:
+        3.10s;
+}
+
+
+/* =========================================
+   CURSOR
+========================================= */
+
+@keyframes cursorBlink {
+
+    0%,
+    45% {
+        opacity:
+            1;
+    }
+
+    50%,
+    100% {
+        opacity:
+            0;
+    }
+}
+
+
+/* =========================================
+   LOADER
+========================================= */
+
+#loader {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    width:
+        100vw;
+
+    height:
+        100vh;
+
+    z-index:
+        999999;
+
+    background:
+        #050008;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+.boot-screen {
+
+    width:
+        min(700px, 90%);
+
+    color:
+        #b900ed;
+
+    text-shadow:
+        0 0 5px rgba(150, 0, 220, 0.6);
+}
+
+.boot-header {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        25px;
+
+    font-size:
+        12px;
+
+    letter-spacing:
+        2px;
+}
+
+.boot-terminal {
+
+    font-size:
+        13px;
+
+    line-height:
+        2;
+
+    margin-bottom:
+        25px;
+}
+
+.boot-terminal div {
+
+    opacity:
+        0;
+
+    animation:
+        bootLine 0.5s forwards;
+}
+
+.boot-terminal div:nth-child(1) {
+    animation-delay:
+        0.2s;
+}
+
+.boot-terminal div:nth-child(2) {
+    animation-delay:
+        0.5s;
+}
+
+.boot-terminal div:nth-child(3) {
+    animation-delay:
+        0.8s;
+}
+
+.boot-terminal div:nth-child(4) {
+    animation-delay:
+        1.1s;
+}
+
+.boot-terminal div:nth-child(5) {
+    animation-delay:
+        1.4s;
+}
+
+.boot-terminal div:nth-child(6) {
+    animation-delay:
+        1.7s;
+}
+
+.boot-terminal div:nth-child(7) {
+    animation-delay:
+        2s;
+}
+
+@keyframes bootLine {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(-10px);
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+/* =========================================
+   BARRA DE CARGA
+========================================= */
+
+.boot-progress {
+    width:
+        100%;
+}
+
+.progress-track {
+
+    width:
+        100%;
+
+    height:
+        4px;
+
+    background:
+        rgba(120, 0, 180, 0.18);
+
+    overflow:
+        hidden;
+}
+
+.progress-bar {
+
+    width:
+        0%;
+
+    height:
+        100%;
+
+    background:
+        #b800ee;
+
+    box-shadow:
+        0 0 7px rgba(170, 0, 230, 0.7);
+
+    animation:
+        loadingBar 4s linear forwards;
+}
+
+@keyframes loadingBar {
+
+    from {
+        width:
+            0%;
+    }
+
+    to {
+        width:
+            100%;
+    }
+}
+
+#percent {
+
+    display:
+        block;
+
+    margin-top:
+        8px;
+
+    text-align:
+        right;
+
+    font-size:
+        11px;
+}
+
+
+/* =========================================
+   LOGO LOADER
+========================================= */
+
+.boot-logo {
+
+    margin-top:
+        40px;
+
+    text-align:
+        center;
+
+    font-size:
+        28px;
+
+    letter-spacing:
+        5px;
+
+    animation:
+        bootGlitch 1.5s infinite;
+}
+
+@keyframes bootGlitch {
+
+    0%,
+    100% {
+        transform:
+            skew(0deg);
+    }
+
+    48% {
+        transform:
+            skew(0deg);
+    }
+
+    50% {
+        transform:
+            skew(-3deg);
+    }
+
+    52% {
+        transform:
+            skew(3deg);
+    }
+
+    54% {
+        transform:
+            skew(0deg);
+    }
+}
+
+#loader.boot-complete {
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+    pointer-events:
+        none;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
+    .container {
+
+        width:
+            92%;
+
+        transform:
+            translateY(-45px);
+    }
+
+    .links {
+
+        display:
+            grid;
+
+        grid-template-columns:
+            repeat(3, 105px);
+
+        justify-content:
+            center;
+
+        gap:
+            10px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    body {
+        overflow-y:
+            auto;
+    }
+
+    .container {
+
+        width:
+            88%;
+
+        min-height:
+            100vh;
+
+        height:
+            auto;
+
+        padding:
+            30px 0 60px;
+
+        transform:
+            translateY(-25px);
+    }
+
+    .name-reveal {
+
+        font-size:
+            25px;
+    }
+
+    .links {
+
+        grid-template-columns:
+            repeat(3, 90px);
+
+        gap:
+            8px;
+    }
+
+    .link-card {
+
+        width:
+            90px;
+
+        height:
+            90px;
+
+        font-size:
+            9px;
+
+        gap:
+            7px;
+
+        padding:
+            8px;
+    }
+
+    .icon-link {
+
+        width:
+            38px;
+
+        height:
+            38px;
+    }
+
+    .link-icon {
+
+        font-size:
+            19px;
+    }
+
+    .boot-terminal {
+
+        font-size:
+            11px;
+    }
+
+    .boot-logo {
+
+        font-size:
+            22px;
+    }
+}
+```
